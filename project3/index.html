@@ -1,1 +1,1320 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>داشبورد مدیرعامل - آزمایشگاه آراد</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        :root {
+            --primary-yellow: #FFD700;
+            --dark-yellow: #FFA500;
+            --bg-dark: #0a0a0a;
+            --bg-card: #1a1a1a;
+            --bg-card-hover: #252525;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --border-color: #333333;
+            --success: #00ff88;
+            --warning: #ff9500;
+            --danger: #ff3b30;
+            --info: #00d4ff;
+        }
+
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 215, 0, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 165, 0, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            border-bottom: 2px solid var(--primary-yellow);
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(255, 215, 0, 0.1);
+            animation: slideDown 0.6s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-yellow), var(--dark-yellow));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--bg-dark);
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 6px 25px rgba(255, 215, 0, 0.5);
+            }
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--primary-yellow), var(--dark-yellow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .user-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-info {
+            text-align: left;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .user-role {
+            font-size: 0.85rem;
+            color: var(--primary-yellow);
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary-yellow), var(--dark-yellow));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--bg-dark);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Page Title */
+        .page-title {
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .page-title h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-title p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Statistics Cards */
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .stat-card:hover {
+            border-color: var(--primary-yellow);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
+        }
+
+        .stat-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .stat-card-title {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .stat-card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .icon-yellow {
+            background: rgba(255, 215, 0, 0.2);
+            color: var(--primary-yellow);
+        }
+
+        .icon-success {
+            background: rgba(0, 255, 136, 0.2);
+            color: var(--success);
+        }
+
+        .icon-danger {
+            background: rgba(255, 59, 48, 0.2);
+            color: var(--danger);
+        }
+
+        .icon-info {
+            background: rgba(0, 212, 255, 0.2);
+            color: var(--info);
+        }
+
+        .stat-card-value {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card-change {
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .change-positive {
+            color: var(--success);
+        }
+
+        /* Workflow Timeline */
+        .workflow-section {
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.8s ease 0.6s both;
+        }
+
+        .workflow-timeline {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+        }
+
+        .timeline-line {
+            position: absolute;
+            top: 3.5rem;
+            left: 5%;
+            right: 5%;
+            height: 3px;
+            background: var(--border-color);
+            z-index: 1;
+        }
+
+        .workflow-step {
+            flex: 1;
+            min-width: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .workflow-step:hover {
+            transform: translateY(-5px);
+        }
+
+        .step-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 3px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .workflow-step.active .step-circle {
+            background: linear-gradient(135deg, var(--primary-yellow), var(--dark-yellow));
+            border-color: var(--primary-yellow);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+            animation: bounce 1s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .workflow-step.completed .step-circle {
+            background: var(--success);
+            border-color: var(--success);
+            color: var(--bg-dark);
+        }
+
+        .step-label {
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            max-width: 100px;
+        }
+
+        .workflow-step.active .step-label {
+            color: var(--primary-yellow);
+        }
+
+        .workflow-step.completed .step-label {
+            color: var(--success);
+        }
+
+        .step-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 28px;
+            height: 28px;
+            background: var(--danger);
+            color: white;
+            border-radius: 50%;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--bg-dark);
+        }
+
+        .workflow-step.active .step-count {
+            background: var(--primary-yellow);
+            color: var(--bg-dark);
+        }
+
+        /* Orders Grid */
+        .orders-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .order-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .order-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-yellow), var(--dark-yellow));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .order-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--primary-yellow);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
+        }
+
+        .order-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .order-id {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-yellow);
+        }
+
+        .order-status {
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-active {
+            background: rgba(255, 215, 0, 0.2);
+            color: var(--primary-yellow);
+            border: 1px solid var(--primary-yellow);
+        }
+
+        .status-completed {
+            background: rgba(0, 255, 136, 0.2);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .status-delayed {
+            background: rgba(255, 59, 48, 0.2);
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+
+        .order-info {
+            margin-bottom: 1rem;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .info-label {
+            color: var(--text-secondary);
+        }
+
+        .info-value {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .order-progress {
+            margin-top: 1rem;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-yellow), var(--dark-yellow));
+            border-radius: 10px;
+            transition: width 1s ease;
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border: 1px solid var(--primary-yellow);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 2rem;
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-yellow);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+        }
+
+        .close-modal:hover {
+            background: var(--bg-card-hover);
+            color: var(--danger);
+            transform: rotate(90deg);
+        }
+
+        .timeline-container {
+            margin-top: 2rem;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 24px;
+            top: 50px;
+            width: 2px;
+            height: calc(100% + 10px);
+            background: var(--border-color);
+        }
+
+        .timeline-item:last-child::before {
+            display: none;
+        }
+
+        .timeline-icon-wrapper {
+            flex-shrink: 0;
+        }
+
+        .timeline-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            border: 3px solid var(--border-color);
+            background: var(--bg-dark);
+        }
+
+        .timeline-item.completed .timeline-icon {
+            background: var(--success);
+            border-color: var(--success);
+            color: var(--bg-dark);
+        }
+
+        .timeline-item.active .timeline-icon {
+            background: linear-gradient(135deg, var(--primary-yellow), var(--dark-yellow));
+            border-color: var(--primary-yellow);
+            color: var(--bg-dark);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .timeline-item.completed .timeline-content {
+            border-color: var(--success);
+        }
+
+        .timeline-item.active .timeline-content {
+            border-color: var(--primary-yellow);
+        }
+
+        .timeline-stage {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item.completed .timeline-stage {
+            color: var(--success);
+        }
+
+        .timeline-item.active .timeline-stage {
+            color: var(--primary-yellow);
+        }
+
+        .timeline-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.8rem;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .timeline-detail {
+            color: var(--text-secondary);
+        }
+
+        .timeline-detail strong {
+            color: var(--text-primary);
+        }
+
+        .work-description {
+            background: rgba(255, 215, 0, 0.05);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-top: 1rem;
+            color: var(--text-primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .orders-grid,
+            .stats-section {
+                grid-template-columns: 1fr;
+            }
+
+            .workflow-timeline {
+                overflow-x: auto;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">آ</div>
+                <div class="logo-text">
+                    <h1>آزمایشگاه آراد</h1>
+                    <p>سیستم مدیریت هوشمند سفارشات</p>
+                </div>
+            </div>
+        </div>
+        <div class="user-section">
+            <div class="user-info">
+                <div class="user-name">دکتر احمد رضایی</div>
+                <div class="user-role">مدیرعامل</div>
+            </div>
+            <div class="user-avatar">👔</div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Page Title -->
+        <div class="page-title">
+            <h2>داشبورد مدیریتی</h2>
+            <p>نمای کلی و پیگیری لحظه‌ای وضعیت سفارشات</p>
+        </div>
+
+        <!-- Statistics Cards -->
+        <section class="stats-section">
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <span class="stat-card-title">کل سفارشات امروز</span>
+                    <div class="stat-card-icon icon-yellow">📊</div>
+                </div>
+                <div class="stat-card-value" id="totalOrders">24</div>
+                <div class="stat-card-change change-positive">
+                    <span>↑ 12%</span>
+                    <span>نسبت به دیروز</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <span class="stat-card-title">سفارشات تکمیل شده</span>
+                    <div class="stat-card-icon icon-success">✓</div>
+                </div>
+                <div class="stat-card-value" id="completedOrders">18</div>
+                <div class="stat-card-change change-positive">
+                    <span>↑ 8%</span>
+                    <span>نسبت به دیروز</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <span class="stat-card-title">سفارشات با تاخیر</span>
+                    <div class="stat-card-icon icon-danger">⚠️</div>
+                </div>
+                <div class="stat-card-value" id="delayedOrders">3</div>
+                <div class="stat-card-change change-positive">
+                    <span>↓ 25%</span>
+                    <span>بهبود یافته</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <span class="stat-card-title">میانگین زمان</span>
+                    <div class="stat-card-icon icon-info">⏱️</div>
+                </div>
+                <div class="stat-card-value">4.2h</div>
+                <div class="stat-card-change change-positive">
+                    <span>↑ 15%</span>
+                    <span>بهبود سرعت</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Workflow Timeline -->
+        <section class="workflow-section">
+            <div class="page-title">
+                <h2>مراحل گردش کار</h2>
+                <p>تعداد سفارشات در هر مرحله</p>
+            </div>
+            <div class="workflow-timeline" id="workflowTimeline">
+                <div class="timeline-line"></div>
+                
+                <div class="workflow-step completed" data-stage="0">
+                    <div class="step-circle">
+                        ✓
+                        <span class="step-count">24</span>
+                    </div>
+                    <div class="step-label">دریافت سفارش</div>
+                </div>
+
+                <div class="workflow-step completed" data-stage="1">
+                    <div class="step-circle">
+                        ✓
+                        <span class="step-count">20</span>
+                    </div>
+                    <div class="step-label">ثبت نمونه</div>
+                </div>
+
+                <div class="workflow-step active" data-stage="2">
+                    <div class="step-circle">
+                        🔬
+                        <span class="step-count">8</span>
+                    </div>
+                    <div class="step-label">آماده‌سازی نمونه</div>
+                </div>
+
+                <div class="workflow-step" data-stage="3">
+                    <div class="step-circle">
+                        🧪
+                        <span class="step-count">5</span>
+                    </div>
+                    <div class="step-label">انجام آزمایش</div>
+                </div>
+
+                <div class="workflow-step" data-stage="4">
+                    <div class="step-circle">
+                        ✔️
+                        <span class="step-count">3</span>
+                    </div>
+                    <div class="step-label">بررسی کیفیت</div>
+                </div>
+
+                <div class="workflow-step" data-stage="5">
+                    <div class="step-circle">
+                        ✅
+                        <span class="step-count">2</span>
+                    </div>
+                    <div class="step-label">تایید نتایج</div>
+                </div>
+
+                <div class="workflow-step" data-stage="6">
+                    <div class="step-circle">
+                        📄
+                        <span class="step-count">1</span>
+                    </div>
+                    <div class="step-label">صدور گزارش</div>
+                </div>
+
+                <div class="workflow-step" data-stage="7">
+                    <div class="step-circle">
+                        📦
+                        <span class="step-count">0</span>
+                    </div>
+                    <div class="step-label">تحویل</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Orders Grid -->
+        <section>
+            <div class="page-title">
+                <h2>سفارشات فعال</h2>
+                <p>کلیک برای مشاهده جزئیات کامل</p>
+            </div>
+
+            <div class="orders-grid" id="ordersGrid">
+                <!-- Orders will be dynamically loaded here -->
+            </div>
+        </section>
+    </div>
+
+    <!-- Order Details Modal -->
+    <div class="modal" id="orderModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <div class="modal-title" id="modalOrderId">سفارش #ARD-1024</div>
+                    <p style="color: var(--text-secondary); margin-top: 0.5rem;" id="modalCustomer">مشتری: شرکت پارس شیمی</p>
+                </div>
+                <button class="close-modal" onclick="closeModal()">×</button>
+            </div>
+
+            <div class="timeline-container" id="orderTimeline">
+                <!-- Timeline will be dynamically loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample data - در پروژه واقعی از API دریافت می‌شود
+        const orders = [
+            {
+                id: 'ARD-1024',
+                customer: 'شرکت پارس شیمی',
+                testType: 'آنالیز شیمیایی',
+                currentStage: 2,
+                progress: 35,
+                status: 'active',
+                remainingTime: '2 ساعت',
+                stages: [
+                    {
+                        name: 'دریافت سفارش',
+                        employee: 'علی محمدی',
+                        startTime: '09:00',
+                        endTime: '09:15',
+                        description: 'سفارش با موفقیت ثبت شد. نوع آزمایش: آنالیز شیمیایی کامل',
+                        status: 'completed'
+                    },
+                    {
+                        name: 'ثبت نمونه',
+                        employee: 'سارا احمدی',
+                        startTime: '09:15',
+                        endTime: '09:30',
+                        description: 'نمونه کدگذاری شد - کد نمونه: SM-1024. بررسی اولیه انجام شد.',
+                        status: 'completed'
+                    },
+                    {
+                        name: 'آماده‌سازی نمونه',
+                        employee: 'رضا کریمی',
+                        startTime: '14:30',
+                        endTime: '-',
+                        description: 'در حال آماده‌سازی نمونه. pH تنظیم شد به 7.2. دمای نمونه: 25 درجه',
+                        status: 'active'
+                    },
+                    {
+                        name: 'انجام آزمایش',
+                        status: 'pending'
+                    },
+                    {
+                        name: 'بررسی کیفیت',
+                        status: 'pending'
+                    },
+                    {
+                        name: 'تایید نتایج',
+                        status: 'pending'
+                    },
+                    {
+                        name: 'صدور گزارش',
+                        status: 'pending'
+                    },
+                    {
+                        name: 'تحویل',
+                        status: 'pending'
+                    }
+                ]
+            },
+            {
+                id: 'ARD-1023',
+                customer: 'آزمایشگاه مرکزی',
+                testType: 'میکروبیولوژی',
+                currentStage: 3,
+                progress: 50,
+                status: 'delayed',
+                remainingTime: '-3 ساعت',
+                delay: '3 ساعت',
+                stages: [
+                    {
+                        name: 'دریافت سفارش',
+                        employee: 'علی محمدی',
+                        startTime: '08:00',
+                        endTime: '08:10',
+                        description: 'سفارش ثبت شد',
+                        status: 'completed'
+                    },
+                    {
+                        name: 'ثبت نمونه',
+                        employee: 'سارا احمدی',
+                        startTime: '08:10',
+                        endTime: '08:25',
+                        description: 'نمونه کدگذاری شد',
+                        status: 'completed'
+                    },
+                    {
+                        name: 'آماده‌سازی نمونه',
+                        employee: 'رضا کریمی',
+                        startTime: '09:00',
+                        endTime: '10:30',
+                        description: 'نمونه آماده شد با تاخیر 1 ساعته',
+                        status: 'completed'
+                    },
+                    {
+                        name: 'انجام آزمایش',
+                        employee: 'دکتر مهدی نوری',
+                        startTime: '10:30',
+                        endTime: '-',
+                        description: 'در حال انجام آزمایش میکروبیولوژی. تاخیر به دلیل کالیبراسیون دستگاه',
+                        status: 'active'
+                    }
+                ]
+            },
+            {
+                id: 'ARD-1022',
+                customer: 'صنایع غذایی سبز',
+                testType: 'کنترل کیفیت',
+                currentStage: 5,
+                progress: 75,
+                status: 'active',
+                remainingTime: '1 ساعت',
+                stages: [
+                    {
+                        name: 'دریافت سفارش',
+                        employee: 'علی محمدی',
+                        startTime: '07:00',
+                        endTime: '07:10',
+                        description: 'سفارش ثبت شد',
+                        status: 'completed'
+                    },
+                    {
+                        name: 'ثبت نمونه',
+                        employee: 'سارا احمدی',
+                        startTime: '07:10',
+                        endTime: '07:20',
+                        description: 'نمونه کدگذاری شد',
+                        status: 'completed'
+                    },
+                    {
+                        name: 'آماده‌سازی نمونه',
+                        employee: 'رضا کریمی',
+                        startTime: '07:30',
+                        endTime: '08:00',
+                        description: 'نمونه آماده شد',
+                        status: 'completed'
+                    },
+                    {
+                        name: 'انجام آزمایش',
+                        employee: 'دکتر مهدی نوری',
+                        startTime: '08:00',
+                        endTime: '10:00',
+                        description: 'آزمایشات تکمیل شد',
+                        status: 'completed'
+                    },
+                    {
+                        name: 'بررسی کیفیت',
+                        employee: 'دکتر فاطمه زارعی',
+                        startTime: '10:00',
+                        endTime: '11:00',
+                        description: 'بررسی کیفیت انجام شد',
+                        status: 'completed'
+                    },
+                    {
+                        name: 'تایید نتایج',
+                        employee: 'دکتر احمد رضایی',
+                        startTime: '14:00',
+                        endTime: '-',
+                        description: 'در حال بررسی نهایی نتایج',
+                        status: 'active'
+                    }
+                ]
+            },
+            {
+                id: 'ARD-1021',
+                customer: 'داروسازی آرمان',
+                testType: 'دارویی',
+                currentStage: 7,
+                progress: 100,
+                status: 'completed',
+                completionTime: '4 ساعت',
+                stages: [
+                    {
+                        name: 'دریافت سفارش',
+                        employee: 'علی محمدی',
+                        startTime: '06:00',
+                        endTime: '06:10',
+                        description: 'سفارش ثبت شد',
+                        status: 'completed'
+                    },
+                    {
+                        name: 'ثبت نمونه',
+                        employee: 'سارا احمدی',
+                        startTime: '06:10',
+                        endTime: '06:20',
+                        description: 'نمونه کدگذاری شد',
+                        status: 'completed'
+                    },
+                    {
+                        name: 'آماده‌سازی نمونه',
+                        employee: 'رضا کریمی',
+                        startTime: '06:30',
+                        endTime: '07:00',
+                        description: 'نمونه آماده شد',
+                        status: 'completed'
+                    },
+                    {
+                        name: 'انجام آزمایش',
+                        employee: 'دکتر مهدی نوری',
+                        startTime: '07:00',
+                        endTime: '08:30',
+                        description: 'آزمایشات دارویی تکمیل شد',
+                        status: 'completed'
+                    },
+                    {
+                        name: 'بررسی کیفیت',
+                        employee: 'دکتر فاطمه زارعی',
+                        startTime: '08:30',
+                        endTime: '09:00',
+                        description: 'کیفیت تایید شد',
+                        status: 'completed'
+                    },
+                    {
+                        name: 'تایید نتایج',
+                        employee: 'دکتر احمد رضایی',
+                        startTime: '09:00',
+                        endTime: '09:15',
+                        description: 'نتایج تایید شد',
+                        status: 'completed'
+                    },
+                    {
+                        name: 'صدور گزارش',
+                        employee: 'مریم حسینی',
+                        startTime: '09:15',
+                        endTime: '09:45',
+                        description: 'گزارش صادر شد',
+                        status: 'completed'
+                    },
+                    {
+                        name: 'تحویل',
+                        employee: 'علی محمدی',
+                        startTime: '09:45',
+                        endTime: '10:00',
+                        description: 'سفارش تحویل مشتری شد',
+                        status: 'completed'
+                    }
+                ]
+            }
+        ];
+
+        // Load orders into grid
+        function loadOrders() {
+            const grid = document.getElementById('ordersGrid');
+            grid.innerHTML = '';
+
+            orders.forEach((order, index) => {
+                const orderCard = document.createElement('div');
+                orderCard.className = 'order-card';
+                orderCard.style.animationDelay = `${0.6 + index * 0.1}s`;
+                orderCard.onclick = () => showOrderDetails(order);
+
+                let statusClass = 'status-active';
+                let statusText = 'در حال انجام';
+                let timeInfo = `<span class="info-label">زمان باقی‌مانده:</span>
+                                <span class="info-value">${order.remainingTime || '-'}</span>`;
+
+                if (order.status === 'completed') {
+                    statusClass = 'status-completed';
+                    statusText = 'تکمیل شده';
+                    timeInfo = `<span class="info-label">زمان تکمیل:</span>
+                                <span class="info-value" style="color: var(--success)">${order.completionTime}</span>`;
+                } else if (order.status === 'delayed') {
+                    statusClass = 'status-delayed';
+                    statusText = 'تاخیر دارد';
+                    timeInfo = `<span class="info-label">تاخیر:</span>
+                                <span class="info-value" style="color: var(--danger)">${order.delay}</span>`;
+                }
+
+                let progressColor = 'linear-gradient(90deg, var(--primary-yellow), var(--dark-yellow))';
+                if (order.status === 'completed') {
+                    progressColor = 'var(--success)';
+                } else if (order.status === 'delayed') {
+                    progressColor = 'linear-gradient(90deg, var(--danger), #ff6b5e)';
+                }
+
+                orderCard.innerHTML = `
+                    <div class="order-header">
+                        <span class="order-id">#${order.id}</span>
+                        <span class="order-status ${statusClass}">${statusText}</span>
+                    </div>
+                    <div class="order-info">
+                        <div class="info-row">
+                            <span class="info-label">مشتری:</span>
+                            <span class="info-value">${order.customer}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">نوع آزمایش:</span>
+                            <span class="info-value">${order.testType}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">مرحله فعلی:</span>
+                            <span class="info-value">${order.stages[order.currentStage].name}</span>
+                        </div>
+                        <div class="info-row">
+                            ${timeInfo}
+                        </div>
+                    </div>
+                    <div class="order-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${order.progress}%; background: ${progressColor}"></div>
+                        </div>
+                        <div class="progress-text">
+                            <span>مرحله ${order.currentStage + 1} از ${order.stages.length}</span>
+                            <span>${order.progress}% تکمیل</span>
+                        </div>
+                    </div>
+                `;
+
+                grid.appendChild(orderCard);
+            });
+        }
+
+        // Show order details in modal
+        function showOrderDetails(order) {
+            const modal = document.getElementById('orderModal');
+            const modalOrderId = document.getElementById('modalOrderId');
+            const modalCustomer = document.getElementById('modalCustomer');
+            const orderTimeline = document.getElementById('orderTimeline');
+
+            modalOrderId.textContent = `سفارش #${order.id}`;
+            modalCustomer.textContent = `مشتری: ${order.customer} | نوع آزمایش: ${order.testType}`;
+
+            // Build timeline
+            orderTimeline.innerHTML = '';
+            order.stages.forEach((stage, index) => {
+                const timelineItem = document.createElement('div');
+                timelineItem.className = `timeline-item ${stage.status}`;
+
+                let icon = '⏳';
+                if (stage.status === 'completed') icon = '✓';
+                else if (stage.status === 'active') icon = '🔄';
+
+                let content = `
+                    <div class="timeline-stage">${index + 1}. ${stage.name}</div>
+                `;
+
+                if (stage.status !== 'pending') {
+                    content += `
+                        <div class="timeline-details">
+                            <div class="timeline-detail"><strong>کارمند:</strong> ${stage.employee}</div>
+                            <div class="timeline-detail"><strong>شروع:</strong> ${stage.startTime}</div>
+                            <div class="timeline-detail"><strong>پایان:</strong> ${stage.endTime}</div>
+                        </div>
+                        <div class="work-description">
+                            📝 ${stage.description}
+                        </div>
+                    `;
+                } else {
+                    content += `<p style="color: var(--text-secondary); margin-top: 0.5rem;">در انتظار شروع...</p>`;
+                }
+
+                timelineItem.innerHTML = `
+                    <div class="timeline-icon-wrapper">
+                        <div class="timeline-icon">${icon}</div>
+                    </div>
+                    <div class="timeline-content">
+                        ${content}
+                    </div>
+                `;
+
+                orderTimeline.appendChild(timelineItem);
+            });
+
+            modal.classList.add('active');
+        }
+
+        // Close modal
+        function closeModal() {
+            const modal = document.getElementById('orderModal');
+            modal.classList.remove('active');
+        }
+
+        // Close modal on outside click
+        document.getElementById('orderModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadOrders();
+
+            // Simulate real-time updates every 5 seconds
+            setInterval(() => {
+                // در پروژه واقعی، از WebSocket یا Server-Sent Events استفاده می‌شود
+                console.log('Checking for updates...');
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
